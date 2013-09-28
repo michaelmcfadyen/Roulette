@@ -31,26 +31,32 @@ def playerBet(money):
             ins = raw_input('Invalid bet. Bet Again: ')
             ins = int(ins)
         money -= ins
-        print money
+        print "You have $%d left" %money
         bet = [rb,ins]
         bets.append(bet)
 
-        more = raw_input('Bet again?: ')
-        more.lower()
-        while more != 'y' and more !='yes' and more !='n' and more!='no':
+        if money<=0:
+            more=False
+        else:
             more = raw_input('Bet again?: ')
             more.lower()
-        if more=='y' or more=='yes':
-            more= True
-        else:
-            more=False
+            while more != 'y' and more !='yes' and more !='n' and more!='no':
+                more = raw_input('Bet again?: ')
+                more.lower()
+            if more=='y' or more=='yes':
+                more= True
+            else:
+                more=False
     return bets
     
 def roulette():
     print "The winning number is..."
     win = random.randint(1,36)
     time.sleep(2)
-    print win
+    if win in red:
+        print "Red %d" %win
+    else:
+        print "Black %d" %win
     return win
 
 def winnings(bets, win):
@@ -60,24 +66,20 @@ def winnings(bets, win):
             s = bet[0]
             t = s[1]
             if win == t:
-                print 'win'
-                winning_money += bet[1] *36
+                winning_money += bet[1] *35
         else:
             if win in red and bet[0] == 1:
-                print 'win'
                 winning_money += bet[1] * 2
             elif win in black and bet[0] == 2:
-                print 'win'
                 winning_money += bet[1] *2
             elif bet[0] == 3 and win%2==0:
-                print 'win'
-                winning_money +=bet[1] * 3
+                winning_money +=bet[1] * 2
             elif bet[0] == 4 and win%2!=0:
-                print 'win'
-                winning_money +=bet[1] * 3
-            else:
-                print 'lose'
+                winning_money +=bet[1] * 2
+    print "You have won $%d dollars" %winning_money
     return winning_money
+
+
 
 #Start of main
 money = raw_input('How much money do you want?: ')
@@ -96,7 +98,7 @@ while play:
         print "You have no more money. You don't have to go home, but you can't stay here."
         exit(0)
     else:
-        again = raw_input('You have %d. Would you like to play again?: ' %money)
+        again = raw_input('You have $%d. Would you like to play again?: ' %money)
         again.lower()
         while again != 'y' and again!='yes' and again!='n' and again!='no':
             raw_input('You have %d. Would you like to play again?: ' %money)
