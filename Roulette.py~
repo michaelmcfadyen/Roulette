@@ -81,9 +81,9 @@ def winnings(bets, win):
     for bet in bets:
 	bet_money += bet[1]
     if winning_money > bet_money:
-	print "You have won $%d dollars" %(winning_money-bet_money)
+	print "You have won $%d dollars" %winning_money-bet_money
     elif winning_money < bet_money:
-	print "You have lost $%d dollars" %(bet_money-winning_money)
+	print "You have lost $%d dollars" %bet_money-winning_money
     else:
 	print "You broke even"
 
